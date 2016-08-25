@@ -5,6 +5,10 @@ class CreatePosts < ActiveRecord::Migration
       t.text :content
       t.integer :user_id
       
+      t.boolean :errotic
+      t.boolean :study
+      t.boolean :relationship
+      
       t.timestamps null: false
     end
   end

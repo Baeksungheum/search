@@ -1,5 +1,14 @@
 class HomeController < ApplicationController
 
+  def search_result
+      
+      @filtered_post = Post.where("(title = ?) and (errotic = ? or study = ? or relationship = ?)", 
+      params[:title], true, true, true)
+      
+  
+  end
+
+
   def index
     
     @every_post = Post.all
@@ -7,7 +16,9 @@ class HomeController < ApplicationController
   end
   
   def write
-    post = Post.new(title: params[:title], content: params[:content], user: current_user)
+    post = Post.new(
+      title: params[:title], content: params[:content], user: current_user,
+      errotic: params[:errotic], study: params[:study], relationship: params[:relationship])
     authorize! :write, Post
     post.save
     

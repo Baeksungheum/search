@@ -1,0 +1,32 @@
+    <% @filtered_post.each do |p| %>
+        <div class="well" style="margin-top: 3em">
+            <span style="font-weight: bold; font-size: 20px">#<%= p.id %></span>
+            
+            <div style="float: right;"><%= p.created_at.in_time_zone("Asia/Seoul").strftime("%Y년%m월%d일 %H시%M분%S초") %> 
+            
+            <% if current_user.nil? %>
+            
+            <% elsif (current_user.id == p.user_id) || (current_user.has_role? :admin) %>
+              <a href='/update/<%= p.id %>'>수정</a> <a href='/destroy/<%= p.id %>'>삭제</a>
+            <% end %>
+            
+            </div>
+            
+            <h3 style="font-weight: bold"><%= p.title %></h3>
+            <br><h3> <%= p.user.email %> </h3>
+              <p> 카테고리
+              <% if p.errotic == true %>
+                <%= "야나무숲" %>
+              <% end %>
+              
+              <% if p.study == true %>
+                <%= "학업" %>
+              <% end %>
+              
+              <% if p.relationship == true %>
+                <%= "인간관계" %>
+              <% end %>
+          
+            <p><%= p.content %></p>
+        </div>
+    <% end %>
